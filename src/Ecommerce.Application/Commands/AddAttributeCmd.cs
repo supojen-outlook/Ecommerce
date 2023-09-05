@@ -4,6 +4,9 @@ using OneOf;
 
 namespace Ecommerce.Application.Commands;
 
+/// <summary>
+/// Add some comment here
+/// </summary>
 public class AddAttributeCmd : IRequest<OneOf<Failure>>
 {
     /// <summary>

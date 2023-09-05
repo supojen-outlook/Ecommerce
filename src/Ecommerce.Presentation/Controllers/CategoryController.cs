@@ -37,7 +37,7 @@ public class CategoryController : ControllerBase
     [OpenApiTag("基礎類目 - 相關")]
     public async Task<IActionResult> AddCategoryAsync([FromBody] AddCategoryReq request)
     {
-        var command = _mapper.Map<AddCategoryCmd>(request);
+        var command = _mapper.Map<AddCategoryCommand>(request);
         var response = await _mediator.Send(command);
         return this.Handle(response);
     }

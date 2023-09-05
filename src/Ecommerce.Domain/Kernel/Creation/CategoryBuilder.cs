@@ -5,7 +5,7 @@ namespace Ecommerce.Domain.Kernel.Creation;
 
 public class CategoryBuilder
 {
-    protected Category category;
+    protected Category Category;
     protected Failure failure;
 
     /// <summary>
@@ -13,7 +13,7 @@ public class CategoryBuilder
     /// </summary>
     public CategoryBuilder()
     {
-        category = new Category();
+        Category = new Category();
     }
 
     /// <summary>
@@ -22,7 +22,7 @@ public class CategoryBuilder
     /// <param name="category"></param>
     public CategoryBuilder(Category category)
     {
-        this.category = category;
+        this.Category = category;
     }
     
     /// <summary>
@@ -31,7 +31,7 @@ public class CategoryBuilder
     /// <param name="name"></param>
     public void SetName(string name)
     {
-        category.Name = name;
+        Category.Name = name;
     }
     
     /// <summary>
@@ -72,7 +72,7 @@ public class CategoryBuilder
         {
             failure = Failure.New(CategoryCode.DuplicatedName);
         }
-        category.Attributes.Add(attribute);
+        Category.Attributes.Add(attribute);
         return attribute;
     }
     
@@ -82,7 +82,7 @@ public class CategoryBuilder
     /// <returns></returns>
     public OneOf<Failure,Category> Build()
     {
-        if (category.Name == null)
+        if (Category.Name == null)
         {
             failure = Failure.New(CategoryCode.MustHasName);
         }
@@ -90,7 +90,7 @@ public class CategoryBuilder
         if (failure != null)
             return failure;
 
-        return category;
+        return Category;
     }
     
     /// <summary>
@@ -99,7 +99,7 @@ public class CategoryBuilder
     /// <returns></returns>
     private int getLayerNumOfParent()
     {
-        var parent = category;
+        var parent = Category;
         var number = 0;
         while (parent is not null)
         {
@@ -115,7 +115,7 @@ public class CategoryBuilder
     /// <returns></returns>
     private HashSet<CategoryAttribute> getAttributesFromParent()
     {
-        var parent = category;
+        var parent = Category;
         var attributes = new HashSet<CategoryAttribute>();
         while (parent is not null)
         {

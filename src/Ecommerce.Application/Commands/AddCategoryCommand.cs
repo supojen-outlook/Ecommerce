@@ -7,12 +7,12 @@ using MediatR;
 
 namespace Ecommerce.Application.Commands;
 
-public class AddCategoryCmd : IRequest<OneOf<Failure,Category>>
+public class AddCategoryCommand : IRequest<OneOf<Failure,Category>>
 {
     public string Name { get; set; }
 }
 
-public class AddCategoryHandler : IRequestHandler<AddCategoryCmd, OneOf<Failure, Category>>
+public class AddCategoryHandler : IRequestHandler<AddCategoryCommand, OneOf<Failure, Category>>
 {
     private readonly IUnitOfWork _unitOfWork;
 
@@ -31,7 +31,7 @@ public class AddCategoryHandler : IRequestHandler<AddCategoryCmd, OneOf<Failure,
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<OneOf<Failure, Category>> Handle(AddCategoryCmd request, CancellationToken cancellationToken)
+    public async Task<OneOf<Failure, Category>> Handle(AddCategoryCommand request, CancellationToken cancellationToken)
     {
         // description - 
         var builder = new CategoryBuilder();

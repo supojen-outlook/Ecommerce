@@ -21,7 +21,6 @@ public class DbConfiguration :
         
     }
     
-
     public void Configure(EntityTypeBuilder<CategoryAttribute> builder)
     {
         builder.Property<long>("id").IsRequired();

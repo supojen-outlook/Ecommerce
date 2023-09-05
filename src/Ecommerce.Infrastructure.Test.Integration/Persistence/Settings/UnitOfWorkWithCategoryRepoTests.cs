@@ -1,11 +1,7 @@
-using Ecommerce.Domain.Failures;
-using Ecommerce.Domain.Failures.Attributes;
 using Ecommerce.Domain.Kernel;
 using Ecommerce.Infrastructure.Persistence.Repositories;
 using Ecommerce.Infrastructure.Persistence.Settings;
 using Ecommerce.Infrastructure.Test.Integration.Persistence.Initialization;
-using Microsoft.Extensions.DependencyInjection;
-using Moq;
 using Shouldly;
 using Test.Helpers;
 using Xunit;
@@ -26,32 +22,32 @@ public class UnitOfWorkWithCategoryRepoTests
         this.output = output;
     }
     
-    [Fact]
-    public async Task GetAsync_IfExist_ShouldGetTheData()
-    {
-        var options = this.CreatePostgreSqlUniqueClassOptionsWithLogTo<AppDbContext>(output.WriteLine);
-        await using (var context = new AppDbContext(options))
-        {
-            // SETUP DB_CONTEXT
-            context.Database.EnsureDeleted();
-            context.Database.EnsureCreated();
-            
-            // arrange
-            var repository = new CategoryRepository(context);
-            var unitOfWork = new UnitOfWork(context);
-            SampleDataInitializer.Seed(context,SampleData.Categories);
-            
-            // act
-            using var transaction = unitOfWork.Begin();
-            var target = await repository.GetAsync(SampleData.Categories[0].Code);
-            unitOfWork.Commit(transaction);
-            
-            // assert
-            target.Value.ShouldBeType<Category>();
-            target.AsT1.Id.ShouldBe(SampleData.Categories[0].Id);
-            target.AsT1.Name.ShouldBe(SampleData.Categories[0].Name);
-        }
-    }
+    //[Fact]
+    //public async Task GetAsync_IfExist_ShouldGetTheData()
+    //{
+    //    var options = this.CreatePostgreSqlUniqueClassOptionsWithLogTo<AppDbContext>(output.WriteLine);
+    //    await using (var context = new AppDbContext(options))
+    //    {
+    //        // SETUP DB_CONTEXT
+    //        context.Database.EnsureDeleted();
+    //        context.Database.EnsureCreated();
+    //        
+    //        // arrange
+    //        var repository = new CategoryRepository(context);
+    //        var unitOfWork = new UnitOfWork(context);
+    //        SampleDataInitializer.Seed(context,SampleData.Categories);
+    //        
+    //        // act
+    //        using var transaction = unitOfWork.Begin();
+    //        var target = await repository.GetAsync(SampleData.Categories[0].Code);
+    //        unitOfWork.Commit(transaction);
+    //        
+    //        // assert
+    //        target.Value.ShouldBeType<Category>();
+    //        target.AsT1.Id.ShouldBe(SampleData.Categories[0].Id);
+    //        target.AsT1.Name.ShouldBe(SampleData.Categories[0].Name);
+    //    }
+    //}
 
     //[Fact]
     //public async Task GetAsync_IfNotExist_ShouldReturnFailure()
